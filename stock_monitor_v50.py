@@ -14,10 +14,49 @@ from email.header import Header
 # ==========================
 
 def send_email(subject, content):
-send_email(
-    email_title,
-    email_content
-)
+
+    sender = os.getenv("GMAIL_USER")
+    password = os.getenv("GMAIL_PASS")
+
+    receiver = sender
+
+    msg = MIMEText(
+        content,
+        "plain",
+        "utf-8"
+    )
+
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = receiver
+
+
+    try:
+
+        server = smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        )
+
+        server.login(
+            sender,
+            password
+        )
+
+        server.sendmail(
+            sender,
+            receiver,
+            msg.as_string()
+        )
+
+        server.quit()
+
+        print("📧 邮件发送成功")
+
+
+    except Exception as e:
+
+        print("邮件发送失败:", e)
     
 
         print("📧 邮件发送成功")

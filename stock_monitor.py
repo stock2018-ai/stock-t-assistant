@@ -128,6 +128,34 @@ else:
     print("操作建议：")
     print("🔴 控制仓位")
 
+print("----------------")
+print("智能做T计划")
 
+
+if price <= level618:
+    print("🟢 接近0.618支撑区域")
+    print("关注低吸机会")
+
+elif price <= level500:
+    print("🟡 中间调整区域")
+    print("等待确认")
+
+else:
+    print("🔴 接近压力区域")
+    print("考虑高抛做T")
+
+
+print()
+
+print("参考买入区:",
+      round(level618,2),
+      "-",
+      round(level618*1.03,2))
+
+
+print("参考卖T区:",
+      round(level500,2),
+      "-",
+      round(level382,2))
 print("----------------")
 print("V3.1运行完成")

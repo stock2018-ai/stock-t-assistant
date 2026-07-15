@@ -1829,4 +1829,119 @@ else:
 print("================")
 
 print("================")
+# ==========================
+# V5.1 目标价格提醒
+# ==========================
+
+print()
+print("================")
+print("V5.1 目标提醒")
+print("================")
+
+
+if price >= target3:
+
+    email_title = (
+        "【突破前高提醒】"
+        + stock_name
+    )
+
+    email_content = f"""
+股票:
+{stock_name}
+
+代码:
+{stock_code}
+
+当前价格:
+{round(price,2)}
+
+突破目标:
+{round(target3,2)}
+
+状态:
+🚀 已突破前高
+
+建议:
+关注趋势延续
+"""
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+    print(email_content)
+
+
+elif price >= target2:
+
+    email_title = (
+        "【第二目标提醒】"
+        + stock_name
+    )
+
+    email_content = f"""
+股票:
+{stock_name}
+
+当前价格:
+{round(price,2)}
+
+第二目标:
+{round(target2,2)}
+
+状态:
+🎯 第二目标达到
+
+建议:
+继续观察趋势
+"""
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+    print(email_content)
+
+
+elif price >= target1:
+
+    email_title = (
+        "【第一目标提醒】"
+        + stock_name
+    )
+
+    email_content = f"""
+股票:
+{stock_name}
+
+当前价格:
+{round(price,2)}
+
+第一目标:
+{round(target1,2)}
+
+状态:
+🎯 第一目标达到
+
+建议:
+可考虑部分止盈
+"""
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+    print(email_content)
+
+
+else:
+
+    print("暂未达到目标价格")
+
+
+print("================")
 print("V3.3运行完成")

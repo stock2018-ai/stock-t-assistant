@@ -1591,4 +1591,62 @@ else:
 
 
 print("================")
+# ==========================
+# V4.7 邮件交易提醒判断
+# ==========================
+
+print()
+print("================")
+print("V4.7 邮件提醒")
+print("================")
+
+
+if price > confirm_buy:
+
+    email_title = (
+        "【买入提醒】"
+        + stock_name
+        + "站稳关键位"
+    )
+
+    email_content = f"""
+股票:
+{stock_name}
+
+代码:
+{stock_code}
+
+当前价格:
+{price}
+
+关键确认位:
+{round(confirm_buy,2)}
+
+状态:
+🟢 已站上0.618关键位
+
+建议:
+可考虑分批关注
+
+目标:
+{round(target1,2)}
+{round(target2,2)}
+{round(target3,2)}
+
+风险:
+{round(stop_loss,2)}
+"""
+
+
+    print(email_title)
+
+    print(email_content)
+
+
+else:
+
+    print("暂未触发买入提醒")
+
+
+print("================")
 print("V3.3运行完成")

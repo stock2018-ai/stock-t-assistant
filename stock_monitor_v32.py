@@ -10,7 +10,7 @@ import datetime
 # 基础框架
 # =========================
 
-print("智能做T助手 V3.2")
+print("智能做T助手 V3.2 稳定版")
 
 print("时间:", datetime.datetime.now())
 print("----------------")

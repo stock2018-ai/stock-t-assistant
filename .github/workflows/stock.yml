@@ -14,7 +14,10 @@ jobs:
       - name: 安装分析工具
         run: pip install -r requirements.txt
       - name: 运行程序
-        run: python V5.1_full.py
+  env:
+    GMAIL_USER: ${{ secrets.GMAIL_USER }}
+    GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+  run: python V5.1_full.py
       - name: 运行程序
         run: python V5.1_full.py
 

@@ -86,9 +86,10 @@ data=pd.DataFrame(
 
 
 close=data["close"]
+close = close.reset_index(drop=True)
+
 print(data.head())
 print("数据数量:", len(data))
-
 records=[]
 
 
@@ -114,7 +115,7 @@ close=data["close"]
 close = data["close"]
 close = close.squeeze()
 
-price = float(close.iloc[-1])
+price = float(data["close"].iloc[-1])
 
 
 # 均线

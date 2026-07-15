@@ -930,39 +930,61 @@ print("================")
 print("AI综合分析")
 print("================")
 
+# ==========================
+# V4.1 AI综合评分优化
+# ==========================
+
 ai_score = 50
 
 
-# 1. 趋势评分
+# 1. 趋势判断（30分）
 
 if price > ma5 and ma5 > ma10:
     ai_score += 20
-    trend = "短期趋势向上"
+    trend = "🟢 短期趋势向上"
 
 elif price < ma5 and ma5 < ma10:
     ai_score -= 10
-    trend = "短期趋势偏弱"
+    trend = "🔴 短期趋势偏弱"
 
 else:
-    trend = "震荡观察"
+    trend = "🟡 震荡观察"
 
 
-# 2. 黄金分割位置
+# 2. 黄金分割位置（30分）
 
-if price <= level618 * 1.03:
-    ai_score += 15
-    position = "接近0.618支撑区域"
+if price < level618:
+    ai_score -= 10
+    position = "⚠️ 跌破0.618支撑"
+
+elif price <= level618 * 1.03:
+    ai_score += 10
+    position = "🟢 接近0.618支撑"
 
 elif price <= level500:
     ai_score += 5
-    position = "回调区域"
+    position = "🟡 回调区域"
 
 else:
     ai_score -= 5
-    position = "偏高区域"
+    position = "🔴 偏高区域"
 
 
-# 3. MACD
+# 3. 成交量（20分）
+
+if volume_ratio > 1.5 and price > data["close"].iloc[-2]:
+    ai_score += 10
+    volume_state = "放量上涨"
+
+elif volume_ratio > 1.5 and price < data["close"].iloc[-2]:
+    ai_score -= 5
+    volume_state = "放量下跌"
+
+else:
+    volume_state = "成交量正常"
+
+
+# 4. MACD（20分）
 
 if macd.iloc[-1] > 0:
     ai_score += 10
@@ -975,20 +997,10 @@ else:
 
 # 限制范围
 
-if ai_score > 100:
-    ai_score = 100
+ai_score = max(0, min(100, ai_score))
 
-if ai_score < 0:
-    ai_score = 0
-
-
-# 底部概率
 
 bottom_probability = ai_score
-
-
-# 顶部风险
-
 top_risk = 100 - ai_score
 
 
@@ -1023,6 +1035,18 @@ if ai_score >= 80:
 elif ai_score >= 60:
 
     print("AI结论:")
+    print()
+
+print("交易等级:")
+
+if ai_score >= 80:
+    print("A级：可以重点关注")
+
+elif ai_score >= 60:
+    print("B级：等待确认")
+
+else:
+    print("C级：暂不介入")
     print("🟡 调整观察，等待确认")
 
 else:

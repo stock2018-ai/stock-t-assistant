@@ -91,18 +91,7 @@ close=data["close"]
 records=[]
 
 
-for item in klines:
 
-    row=item.split(",")
-
-    records.append([
-        row[0],
-        float(row[2]),
-        float(row[3]),
-        float(row[4]),
-        float(row[5]),
-        float(row[6])
-    ])
 
 
 data=pd.DataFrame(

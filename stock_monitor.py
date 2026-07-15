@@ -2,19 +2,17 @@ import requests
 import datetime
 
 print("智能做T助手启动")
-print("运行时间:", datetime.datetime.now())
+print("时间:", datetime.datetime.now())
 
-# 中国卫星 股票代码
 code = "sh600118"
 
 url = f"https://qt.gtimg.cn/q={code}"
 
-data = requests.get(url).text
+response = requests.get(url)
 
+data = response.text
+
+print("股票数据:")
 print(data)
 
-if data:
-    print("正在监控：中国卫星 600118")
-    print("行情获取成功")
-else:
-    print("行情获取失败")
+print("监控股票：中国卫星 600118")

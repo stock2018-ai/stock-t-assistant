@@ -1068,8 +1068,43 @@ print("================")
 
 # 阶段低点和高点
 
-stage_low = float(recent.min())
-stage_high = float(recent.max())
+# ==========================
+# V4.3 智能波段识别
+# ==========================
+
+# 最近60日寻找主要波段
+
+wave_data = close.tail(60).reset_index(drop=True)
+
+
+# 找阶段低点
+
+wave_low_index = wave_data.idxmin()
+
+stage_low = float(
+    wave_data.iloc[wave_low_index]
+)
+
+
+# 找低点之后最高点
+
+after_low = wave_data.iloc[wave_low_index:]
+
+
+stage_high = float(
+    after_low.max()
+)
+
+
+print()
+
+print("V4.3智能波段")
+
+print("波段起点:",
+      round(stage_low,2))
+
+print("波段高点:",
+      round(stage_high,2))
 
 
 print("阶段低点:", round(stage_low,2))

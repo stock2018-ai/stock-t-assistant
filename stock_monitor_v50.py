@@ -1620,7 +1620,7 @@ print("V4.7 邮件提醒")
 print("================")
 
 
-if price > confirm_buy:
+if price >= confirm_buy:
 
     email_title = (
         "【买入提醒】"
@@ -1642,8 +1642,12 @@ if price > confirm_buy:
 {round(confirm_buy,2)}
 
 状态:
-🟢 已站上0.618关键位
+🟢 已重新站稳关键买入位
+确认价格:
+{round(confirm_buy,2)}
 
+当前价格:
+{round(price,2)}
 建议:
 可考虑分批关注
 

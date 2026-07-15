@@ -921,4 +921,115 @@ else:
 
 
 print("========================")
+# ==========================
+# V4.0 AI综合评分
+# ==========================
+
+print()
+print("================")
+print("AI综合分析")
+print("================")
+
+ai_score = 50
+
+
+# 1. 趋势评分
+
+if price > ma5 and ma5 > ma10:
+    ai_score += 20
+    trend = "短期趋势向上"
+
+elif price < ma5 and ma5 < ma10:
+    ai_score -= 10
+    trend = "短期趋势偏弱"
+
+else:
+    trend = "震荡观察"
+
+
+# 2. 黄金分割位置
+
+if price <= level618 * 1.03:
+    ai_score += 15
+    position = "接近0.618支撑区域"
+
+elif price <= level500:
+    ai_score += 5
+    position = "回调区域"
+
+else:
+    ai_score -= 5
+    position = "偏高区域"
+
+
+# 3. MACD
+
+if macd_value > 0:
+    ai_score += 10
+    macd_state = "MACD偏强"
+
+else:
+    ai_score -= 5
+    macd_state = "MACD偏弱"
+
+
+# 限制范围
+
+if ai_score > 100:
+    ai_score = 100
+
+if ai_score < 0:
+    ai_score = 0
+
+
+# 底部概率
+
+bottom_probability = ai_score
+
+
+# 顶部风险
+
+top_risk = 100 - ai_score
+
+
+print("AI评分:", ai_score, "/100")
+
+print()
+
+print("趋势:", trend)
+
+print("位置:", position)
+
+print(macd_state)
+
+print()
+
+print("底部概率:",
+      bottom_probability,
+      "%")
+
+print("顶部风险:",
+      top_risk,
+      "%")
+
+
+print()
+
+if ai_score >= 80:
+
+    print("AI结论:")
+    print("🟢 趋势较强，可重点关注")
+
+elif ai_score >= 60:
+
+    print("AI结论:")
+    print("🟡 调整观察，等待确认")
+
+else:
+
+    print("AI结论:")
+    print("🔴 趋势偏弱，注意风险")
+
+
+print("================")
 print("V3.3运行完成")

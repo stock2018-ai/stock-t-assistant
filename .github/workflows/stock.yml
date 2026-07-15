@@ -8,18 +8,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: 下载代码
         uses: actions/checkout@v4
 
+
       - name: 安装分析工具
         run: pip install -r requirements.txt
+
+
       - name: 运行程序
-  env:
-    GMAIL_USER: ${{ secrets.GMAIL_USER }}
-    GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
-  run: python V5.1_full.py
-      - name: 运行程序
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+
         run: python V5.1_full.py
+
 
       - name: 保存交易报告
         uses: actions/upload-artifact@v4

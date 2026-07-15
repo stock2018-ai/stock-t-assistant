@@ -1075,25 +1075,172 @@ print("================")
 # 最近60日寻找主要波段
 
 wave_data = close.tail(60).reset_index(drop=True)
+# ==========================
+# V4.4 真实K线波段识别
+# ==========================
+
+print()
+
+print("================")
+print("V4.4 波段交易分析")
+print("================")
 
 
-# 找阶段低点
+# 最近60日K线
 
-wave_low_index = wave_data.idxmin()
+wave_data = data.tail(60)
+
+
+# 真实最低价
 
 stage_low = float(
-    wave_data.iloc[wave_low_index]
+    wave_data["low"].min()
 )
 
 
-# 找低点之后最高点
-
-after_low = wave_data.iloc[wave_low_index:]
-
+# 真实最高价
 
 stage_high = float(
-    after_low.max()
+    wave_data["high"].max()
 )
+
+
+print("波段低点:",
+      round(stage_low,2))
+
+
+print("波段高点:",
+      round(stage_high,2))
+
+
+# 波段涨幅
+
+wave_gain = (
+    stage_high-stage_low
+) / stage_low * 100
+
+
+print("波段涨幅:",
+      round(wave_gain,2),
+      "%")
+
+
+
+# 当前回撤
+
+drawdown = (
+    stage_high-price
+) / stage_high * 100
+
+
+print("当前回撤:",
+      round(drawdown,2),
+      "%")
+
+
+
+# 黄金分割回调位置
+
+fib382 = stage_high - (
+    stage_high-stage_low
+)*0.382
+
+
+fib500 = stage_high - (
+    stage_high-stage_low
+)*0.5
+
+
+fib618 = stage_high - (
+    stage_high-stage_low
+)*0.618
+
+
+print()
+
+print("黄金分割:")
+print("0.382:",
+      round(fib382,2))
+
+print("0.5:",
+      round(fib500,2))
+
+print("0.618:",
+      round(fib618,2))
+
+
+# 当前阶段
+
+position = (
+    price-stage_low
+) / (
+    stage_high-stage_low
+) *100
+
+
+print()
+
+print("当前波段位置:",
+      round(position,2),
+      "%")
+
+
+if position <=20:
+
+    print("阶段:")
+    print("🟢 底部区域")
+
+elif position <=50:
+
+    print("阶段:")
+    print("🟡 回调整理区域")
+
+elif position <=75:
+
+    print("阶段:")
+    print("🟠 上涨阶段")
+
+else:
+
+    print("阶段:")
+    print("🔴 高位区域")
+
+
+
+# 交易计划
+
+print()
+
+print("交易计划:")
+
+print("观察支撑:",
+      round(stage_low,2))
+
+
+print("第一压力:",
+      round(fib618,2))
+
+
+print("第二压力:",
+      round(fib500,2))
+
+
+print("强压力:",
+      round(fib382,2))
+
+
+if price < fib618:
+
+    print("状态:")
+    print("🟡 支撑下方，等待止跌")
+
+else:
+
+    print("状态:")
+    print("🟢 支撑之上")
+
+
+print("================")
 
 
 print()

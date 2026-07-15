@@ -3,6 +3,9 @@ import json
 import pandas as pd
 import requests
 import datetime
+import smtplib
+from email.mime.text import MIMEText
+import os
 
 
 # =========================

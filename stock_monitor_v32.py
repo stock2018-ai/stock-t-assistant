@@ -666,7 +666,90 @@ print()
 print("成交量评分:",
       volume_score)
 
+# =========================
+# V3.3.2 MACD趋势分析
+# =========================
 
+
+# EMA计算
+
+ema12 = close.ewm(span=12).mean()
+
+ema26 = close.ewm(span=26).mean()
+
+
+dif = ema12 - ema26
+
+dea = dif.ewm(span=9).mean()
+
+macd = (dif - dea) * 2
+
+
+dif_now = float(dif.iloc[-1])
+dea_now = float(dea.iloc[-1])
+macd_now = float(macd.iloc[-1])
+
+
+print()
+
+print("----------------")
+print("MACD趋势分析")
+
+
+print("DIF:",
+      round(dif_now,3))
+
+print("DEA:",
+      round(dea_now,3))
+
+print("MACD:",
+      round(macd_now,3))
+
+
+# 金叉判断
+
+if dif_now > dea_now:
+
+    print("🟢 MACD偏强")
+
+else:
+
+    print("🔴 MACD偏弱")
+
+
+# =========================
+# 简单底背离检测
+# =========================
+
+
+price_recent = close.tail(20)
+
+macd_recent = macd.tail(20)
+
+
+price_low1 = price_recent.iloc[:10].min()
+price_low2 = price_recent.iloc[10:].min()
+
+
+macd_low1 = macd_recent.iloc[:10].min()
+macd_low2 = macd_recent.iloc[10:].min()
+
+
+
+print()
+
+if price_low2 < price_low1 and macd_low2 > macd_low1:
+
+    print("🟢 发现MACD底背离")
+
+    print("下跌动能减弱")
+
+else:
+
+    print("⚪ 暂未发现明显底背离")
+
+
+print("----------------")
 print("----------------")
 print("----------------")
 print("V3.3运行完成")

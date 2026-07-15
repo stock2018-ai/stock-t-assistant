@@ -36,7 +36,7 @@ stock_code = "600118"
 stock_name = "中国卫星"
 
 sina_code = "sh600118"
-
+name = stock_name
 
 
 # ==========================

@@ -55,9 +55,13 @@ elif latest["RSI"] > 70:
 else:
     print("🟡 RSI正常，等待趋势")
 # 简单做T提示
-if change <= -3:
-    print("提示：今日大跌，关注低吸机会")
-elif change >= 3:
-    print("提示：今日上涨，关注高抛机会")
+# 做T综合判断
+
+if latest["RSI"] < 30 and latest["close"] < latest["MA5"]:
+    print("🟢 RSI超卖 + 跌破MA5，关注低吸机会")
+
+elif latest["RSI"] > 70 and latest["close"] > latest["MA5"]:
+    print("🔴 RSI高位 + 远离MA5，注意高抛机会")
+
 else:
-    print("提示：等待趋势确认")
+    print("🟡 趋势中，等待更明确机会")

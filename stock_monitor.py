@@ -1,4 +1,5 @@
-
+import re
+import json
 import pandas as pd
 import requests
 import datetime
@@ -19,47 +20,72 @@ print("----------------")
 
 code = "600118"
 
+# V3.2 新浪A股K线接口
+
+code = "sh600118"
+
+
 url = (
-    "https://push2his.eastmoney.com/api/qt/stock/kline/get?"
-    "secid=1.600118"
-    "&fields1=f1,f2,f3,f4,f5,f6"
-    "&fields2=f51,f52,f53,f54,f55,f56,f57"
-    "&klt=101"
-    "&fqt=1"
-    "&lmt=200"
+    "https://quotes.sina.cn/cn/api/jsonp_v2.php/"
+    "var%20_data=/CN_MarketDataService.getKLineData"
+    "?symbol="
+    + code +
+    "&scale=240"
+    "&ma=no"
+    "&datalen=120"
 )
-
-
-headers = {
-    "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-    "Accept":
-    "application/json,text/plain,*/*",
-    "Referer":
-    "https://quote.eastmoney.com/",
-    "Connection":
-    "keep-alive"
-}
 
 
 response = requests.get(
     url,
-    headers=headers,
     timeout=10
 )
 
-if response.status_code != 200:
-    print("东方财富接口连接失败")
-    exit()
-data_json = response.json()
+
+text = response.text
 
 
-if data_json["data"] is None:
-    print("东方财富没有返回K线数据")
-    exit()
+import re
+import json
 
 
-klines = data_json["data"]["klines"]
+data_list = json.loads(
+    re.search(
+        r'\((.*)\)',
+        text
+    ).group(1)
+)
+
+
+records=[]
+
+
+for item in data_list:
+
+    records.append([
+        item["day"],
+        float(item["open"]),
+        float(item["close"]),
+        float(item["high"]),
+        float(item["low"]),
+        float(item["volume"])
+    ])
+
+
+data=pd.DataFrame(
+    records,
+    columns=[
+        "date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "volume"
+    ]
+)
+
+
+close=data["close"]
 
 
 records=[]

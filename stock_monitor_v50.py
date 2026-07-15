@@ -1663,16 +1663,16 @@ if price >= confirm_buy:
 
     email_title = (
         "【买入提醒】"
-        + stock_name
+        + name
         + "站稳关键位"
     )
 
     email_content = f"""
 股票:
-{stock_name}
+{name}
 
 代码:
-{stock_code}
+{stock}
 
 当前价格:
 {price}
@@ -1724,15 +1724,15 @@ if price >= target3:
 
     email_title = (
         "【突破前高提醒】"
-        + stock_name
+        + name
     )
 
     email_content = f"""
 股票:
-{stock_name}
+{name}
 
 代码:
-{stock_code}
+{stock}
 
 当前价格:
 {round(price,2)}
@@ -1759,12 +1759,12 @@ elif price >= target2:
 
     email_title = (
         "【第二目标提醒】"
-        + stock_name
+        + name
     )
 
     email_content = f"""
 股票:
-{stock_name}
+{name}
 
 当前价格:
 {round(price,2)}
@@ -1796,7 +1796,7 @@ elif price >= target1:
 
     email_content = f"""
 股票:
-{stock_name}
+{name}
 
 当前价格:
 {round(price,2)}

@@ -210,3 +210,77 @@ print("RSI:",
 
 
 print("----------------")
+# =========================
+# V3.2 第三阶段
+# 自动上涨波段 + 黄金分割
+# =========================
+
+
+# 最近120根K线
+
+recent = close.tail(120)
+
+
+# 波段最低点
+
+low_price = float(recent.min())
+
+
+# 波段最高点
+
+high_price = float(recent.max())
+
+
+# 判断上涨幅度
+
+wave_gain = (high_price - low_price) / low_price
+
+
+# 黄金分割计算
+
+level382 = high_price - (high_price-low_price)*0.382
+
+level500 = high_price - (high_price-low_price)*0.5
+
+level618 = high_price - (high_price-low_price)*0.618
+
+
+
+print()
+
+print("----------------")
+
+print("黄金分割")
+
+
+print("分析周期: 最近120日")
+
+
+print("波段低点:",
+      round(low_price,2))
+
+
+print("波段高点:",
+      round(high_price,2))
+
+
+print("上涨幅度:",
+      round(wave_gain*100,2),
+      "%")
+
+
+print()
+
+print("0.382压力位:",
+      round(level382,2))
+
+
+print("0.5关键位:",
+      round(level500,2))
+
+
+print("0.618支撑:",
+      round(level618,2))
+
+
+print("----------------")

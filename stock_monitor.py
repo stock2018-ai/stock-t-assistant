@@ -48,14 +48,28 @@ rsi = 100 - (100/(1+rs))
 rsi_now = float(rsi.iloc[-1])
 
 
-# 黄金分割（上涨后的回调支撑）
+# V3.1.2 波段识别黄金分割
 
-high = float(close.max())
-low = float(close.min())
+# 最近60个交易日
+recent = close.tail(60)
 
-level382 = high - (high-low)*0.382
-level500 = high - (high-low)*0.5
-level618 = high - (high-low)*0.618
+# 找最低点
+low_price = float(recent.min())
+
+# 找最低点之后的最高点
+low_index = recent.idxmin()
+
+after_low = recent.loc[low_index:]
+
+high_price = float(after_low.max())
+
+
+# 如果最高点在最低点之后
+# 计算上涨波段回调
+
+level382 = high_price - (high_price-low_price)*0.382
+level500 = high_price - (high_price-low_price)*0.5
+level618 = high_price - (high_price-low_price)*0.618
 
 
 print("股票:",name)
@@ -73,11 +87,18 @@ print("RSI:",round(rsi_now,2))
 print("----------------")
 print("黄金分割")
 
-print("半年最高:",
-      round(high,2))
+print("分析波段")
 
-print("半年最低:",
-      round(low,2))
+print("波段低点:",
+      round(low_price,2))
+
+print("波段高点:",
+      round(high_price,2))
+
+
+print("涨幅:",
+      round((high_price-low_price)/low_price*100,2),
+      "%")
 
 
 print("0.382压力位:",
@@ -105,6 +126,14 @@ if rsi_now < 40:
     score +=15
 
 if price < level618:
+
+    print("⚠️ 跌破0.618支撑")
+    print("等待止跌确认")
+
+elif price <= level618*1.03:
+
+    print("🟢 接近0.618支撑")
+    print("关注低吸机会")
     score +=10
 
 

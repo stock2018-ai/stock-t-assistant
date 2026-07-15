@@ -3,11 +3,56 @@ import json
 import pandas as pd
 import requests
 import datetime
-import smtplib
-from email.mime.text import MIMEText
 import os
+import smtplib
 
+from email.mime.text import MIMEText
+from email.header import Header
 
+# ==========================
+# Gmail发送函数 V5.0
+# ==========================
+
+def send_email(subject, content):
+
+    sender = os.getenv("GMAIL_USER")
+    password = os.getenv("GMAIL_PASS")
+
+    receiver = sender
+
+    msg = MIMEText(
+        content,
+        "plain",
+        "utf-8"
+    )
+
+    msg["Subject"] = Header(subject, "utf-8")
+    msg["From"] = sender
+    msg["To"] = receiver
+
+    try:
+        server = smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        )
+
+        server.login(
+            sender,
+            password
+        )
+
+        server.sendmail(
+            sender,
+            receiver,
+            msg.as_string()
+        )
+
+        server.quit()
+
+        print("📧 邮件发送成功")
+
+    except Exception as e:
+        print("邮件发送失败:", e)
 # =========================
 # 智能做T助手 V3.2
 # 基础框架

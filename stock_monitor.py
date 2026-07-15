@@ -80,14 +80,14 @@ print("半年最低:",
       round(low,2))
 
 
-print("0.618支撑:",
-      round(level618,2))
+print("0.382压力位:",
+      round(level382,2))
 
-print("0.5支撑:",
+print("0.5关键位:",
       round(level500,2))
 
-print("0.382支撑:",
-      round(level382,2))
+print("0.618支撑:",
+      round(level618,2))
 
 
 # 简单评分

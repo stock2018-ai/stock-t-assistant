@@ -178,13 +178,7 @@ else:
     print("🔴 接近压力")
     print("考虑高抛做T")
 
-elif price <= level500:
-    print("🟡 中间调整区域")
-    print("等待确认")
 
-else:
-    print("🔴 接近压力区域")
-    print("考虑高抛做T")
 
 
 print()

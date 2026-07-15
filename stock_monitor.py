@@ -48,14 +48,14 @@ rsi = 100 - (100/(1+rs))
 rsi_now = float(rsi.iloc[-1])
 
 
-# 黄金分割
+# 黄金分割（上涨后的回调支撑）
 
 high = float(close.max())
 low = float(close.min())
 
-level618 = low + (high-low)*0.618
-level500 = low + (high-low)*0.5
-level382 = low + (high-low)*0.382
+level382 = high - (high-low)*0.382
+level500 = high - (high-low)*0.5
+level618 = high - (high-low)*0.618
 
 
 print("股票:",name)

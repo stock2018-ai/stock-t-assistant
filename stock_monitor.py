@@ -1,40 +1,59 @@
 import requests
 import datetime
+import pandas as pd
+import ta
 
-print("智能做T助手启动")
+print("智能做T助手 V2 启动")
 print("时间:", datetime.datetime.now())
 
-# 股票：600118 中国卫星
-code = "sh600118"
+# 中国卫星
+code = "600118"
 
-url = f"https://qt.gtimg.cn/q={code}"
+# 腾讯历史K线接口
+url = f"https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh{code},day,,,60,qfq"
 
-data = requests.get(url).text
+data = requests.get(url).json()
 
-# 去掉前后无用字符
-data = data.replace('"', '').replace(';', '')
+klines = data["data"]["sh600118"]["qfqday"]
 
-# 按 ~ 分割
-items = data.split("~")
+df = pd.DataFrame(
+    klines,
+    columns=["date","open","close","high","low","volume"]
+)
 
-name = items[1]
-code = items[2]
-price = float(items[3])
-yesterday = float(items[4])
-change = float(items[32])
-high = float(items[33])
-low = float(items[34])
+df["close"] = df["close"].astype(float)
+
+# MA
+df["MA5"] = df["close"].rolling(5).mean()
+df["MA10"] = df["close"].rolling(10).mean()
+
+# RSI
+rsi = ta.momentum.RSIIndicator(
+    df["close"],
+    window=14
+)
+
+df["RSI"] = rsi.rsi()
+
+latest = df.iloc[-1]
 
 print("----------------")
-print("股票:", name)
-print("代码:", code)
-print("当前价格:", price)
-print("昨日收盘:", yesterday)
-print("涨跌幅:", change, "%")
-print("今日最高:", high)
-print("今日最低:", low)
+print("股票：中国卫星 600118")
+print("收盘价:", latest["close"])
+print("MA5:", round(latest["MA5"],2))
+print("MA10:", round(latest["MA10"],2))
+print("RSI:", round(latest["RSI"],2))
 print("----------------")
 
+
+if latest["RSI"] < 30:
+    print("🟢 RSI超卖，关注低吸机会")
+
+elif latest["RSI"] > 70:
+    print("🔴 RSI偏高，注意回调")
+
+else:
+    print("🟡 RSI正常，等待趋势")
 # 简单做T提示
 if change <= -3:
     print("提示：今日大跌，关注低吸机会")

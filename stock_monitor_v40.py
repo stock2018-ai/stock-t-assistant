@@ -1645,7 +1645,7 @@ if price > confirm_buy:
 
     print(email_content)
 # ==========================
-# V4.8 Gmail自动发送
+#     V4.8 Gmail自动发送
 # ==========================
 
 sender = os.getenv("GMAIL_USER")

@@ -1494,6 +1494,21 @@ if "fib500_new" not in globals():
 if "fib382_new" not in globals():
 
     fib382_new = level382
+# ==========================
+# V5.4 黄金分割变量保护
+# ==========================
+
+if "fib618_new" not in globals():
+
+    fib618_new = price
+
+if "fib500_new" not in globals():
+
+    fib500_new = price
+
+if "fib382_new" not in globals():
+
+    fib382_new = price
 print("================")
 print("V5.4 每日报告")
 print("================")

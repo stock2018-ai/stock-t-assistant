@@ -1483,17 +1483,6 @@ print()
 # V5.4兼容变量
 # ==========================
 
-if "fib618_new" not in globals():
-
-    fib618_new = level618
-
-if "fib500_new" not in globals():
-
-    fib500_new = level500
-
-if "fib382_new" not in globals():
-
-    fib382_new = level382
 # ==========================
 # V5.4 黄金分割变量保护
 # ==========================

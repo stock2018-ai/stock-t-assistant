@@ -51,27 +51,43 @@ rsi_now = float(rsi.iloc[-1])
 # V3.1.2 波段识别黄金分割
 
 # V3.1.4 智能波段识别
+# V3.1.5 智能上涨波段识别
+
 
 recent = close.tail(120)
 
 
-# 最近120日最低点
-low_price = float(recent.min())
+# 找最近上涨启动点
+
+rolling_low = recent.rolling(20).min()
+
+start_price = float(rolling_low.min())
 
 
-# 最近120日最高点
-high_price = float(recent.max())
+# 找启动点之后最高价
+
+start_index = rolling_low.idxmin()
 
 
-# 判断上涨波段
+after_start = recent.loc[start_index:]
 
-if high_price > low_price:
 
-    wave_gain = (high_price-low_price)/low_price
+end_price = float(after_start.max())
 
-else:
 
-    wave_gain = 0
+# 如果涨幅不足20%，使用最近波段
+
+if (end_price-start_price)/start_price < 0.2:
+
+    start_price = float(recent.min())
+    end_price = float(recent.max())
+
+
+low_price = start_price
+high_price = end_price
+
+
+wave_gain = (high_price-low_price)/low_price
 
 
 # 如果最高点在最低点之后

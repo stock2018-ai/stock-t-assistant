@@ -90,6 +90,8 @@ close = close.reset_index(drop=True)
 
 print(data.head())
 print("数据数量:", len(data))
+print(data["close"].tail())
+print("close数量:", len(data["close"]))
 records=[]
 
 

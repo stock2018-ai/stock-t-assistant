@@ -22,7 +22,7 @@ data = yf.download(
 
 
 close = data["Close"]
-
+close = close.squeeze()
 
 price = float(close.iloc[-1])
 

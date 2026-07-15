@@ -1056,4 +1056,168 @@ else:
 
 
 print("================")
+# ==========================
+# V4.2 波段阶段智能分析
+# ==========================
+
+print()
+print("================")
+print("V4.2 波段阶段分析")
+print("================")
+
+
+# 阶段低点和高点
+
+stage_low = float(recent.min())
+stage_high = float(recent.max())
+
+
+print("阶段低点:", round(stage_low,2))
+print("阶段高点:", round(stage_high,2))
+
+
+# 当前在波段中的位置
+
+wave_position = (
+    price - stage_low
+) / (
+    stage_high - stage_low
+) * 100
+
+
+print("当前波段位置:",
+      round(wave_position,2),
+      "%")
+
+
+# 阶段判断
+
+if wave_position <= 20:
+
+    wave_stage = "🟢 底部区域"
+
+elif wave_position <= 50:
+
+    wave_stage = "🟡 启动/回调区域"
+
+elif wave_position <= 75:
+
+    wave_stage = "🟠 上涨中段"
+
+else:
+
+    wave_stage = "🔴 高位风险区域"
+
+
+print("波段阶段:")
+print(wave_stage)
+
+
+# 距离低点和高点
+
+distance_low = (
+    price-stage_low
+) / stage_low * 100
+
+
+distance_high = (
+    stage_high-price
+) / stage_high * 100
+
+
+print()
+
+print("距离阶段低点:",
+      round(distance_low,2),
+      "%")
+
+
+print("距离阶段高点:",
+      round(distance_high,2),
+      "%")
+
+
+# 底部概率
+
+bottom_score = 50
+
+
+if distance_low < 10:
+    bottom_score += 15
+
+
+if price < level618:
+    bottom_score += 5
+
+
+if rsi_now < 40:
+    bottom_score += 10
+
+
+if macd.iloc[-1] > 0:
+    bottom_score += 10
+
+
+bottom_score = min(
+    bottom_score,
+    100
+)
+
+
+print()
+
+print("底部概率:",
+      bottom_score,
+      "%")
+
+
+# 顶部风险
+
+top_score = 50
+
+
+if wave_position > 75:
+    top_score += 20
+
+
+if rsi_now > 70:
+    top_score += 15
+
+
+if distance_high < 10:
+    top_score += 15
+
+
+top_score = min(
+    top_score,
+    100
+)
+
+
+print("顶部风险:",
+      top_score,
+      "%")
+
+
+# 综合阶段结论
+
+print()
+
+if bottom_score >= 70:
+
+    print("阶段判断:")
+    print("🟢 接近底部区域，等待确认")
+
+elif top_score >= 70:
+
+    print("阶段判断:")
+    print("🔴 接近阶段高点，注意风险")
+
+else:
+
+    print("阶段判断:")
+    print("🟡 波段中间区域，等待方向")
+
+
+print("================")
 print("V3.3运行完成")

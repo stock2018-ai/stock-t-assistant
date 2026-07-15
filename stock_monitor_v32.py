@@ -353,3 +353,107 @@ print("0.618支撑:",
 
 
 print("----------------")
+# =========================
+# V3.2.5 智能评分 + 做T策略
+# =========================
+
+
+score = 50
+
+
+# 均线评分
+
+if price > ma5:
+    score += 10
+
+if ma5 > ma10:
+    score += 10
+
+
+# RSI评分
+
+if rsi_now < 40:
+    score += 15
+
+
+# 价格位置判断
+
+print()
+
+print("----------------")
+
+print("智能评分:",
+      score)
+
+
+print("----------------")
+
+
+print("操作建议:")
+
+
+if score >= 80:
+
+    print("🟢 偏积极")
+    print("可关注低吸机会")
+
+
+elif score >= 60:
+
+    print("🟡 等待确认")
+
+
+else:
+
+    print("🔴 控制仓位")
+
+
+print()
+
+print("智能做T计划")
+
+
+# 支撑区域判断
+
+if price < level618:
+
+    print("⚠️ 跌破0.618支撑")
+    print("状态：调整偏弱")
+    print("策略：等待止跌确认")
+
+
+elif price <= level618 * 1.03:
+
+    print("🟢 接近0.618支撑区域")
+    print("关注低吸机会")
+
+
+elif price <= level500:
+
+    print("🟡 反弹区域")
+    print("等待方向选择")
+
+
+else:
+
+    print("🔴 接近压力区域")
+    print("考虑高抛做T")
+
+
+print()
+
+print("参考买入区:",
+      round(level618,2),
+      "-",
+      round(level618*1.03,2))
+
+
+print("参考卖T区:",
+      round(level500,2),
+      "-",
+      round(level382,2))
+
+
+print("----------------")
+
+print("V3.2运行完成")

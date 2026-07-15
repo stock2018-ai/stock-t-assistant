@@ -15,3 +15,11 @@ jobs:
         run: pip install -r requirements.txt
       - name: 运行程序
         run: python V5.1_full.py
+      - name: 运行程序
+        run: python V5.1_full.py
+
+      - name: 保存交易报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: stock-report
+          path: 中国卫星_交易报告.txt

@@ -1357,7 +1357,125 @@ else:
 
 print("================")
 print("================")
+# ==========================
+# V5.3 买入确认过滤
+# ==========================
 
+print()
+print("================")
+print("V5.3 买入确认")
+print("================")
+
+
+buy_confirm = False
+
+
+# 条件1：价格突破确认位
+
+if price >= confirm_buy:
+
+    price_ok = True
+
+else:
+
+    price_ok = False
+
+
+
+# 条件2：成交量确认
+
+if volume_ratio >= 1:
+
+    volume_ok = True
+
+else:
+
+    volume_ok = False
+
+
+
+# 条件3：MACD确认
+
+if dif_now > dea_now:
+
+    macd_ok = True
+
+else:
+
+    macd_ok = False
+
+
+
+# 综合判断
+
+if price_ok and volume_ok and macd_ok:
+
+    buy_confirm = True
+
+
+
+if buy_confirm:
+
+
+    email_title = (
+        "【V5.3买入确认】"
+        + name
+    )
+
+
+    email_content = f"""
+股票:
+{name}
+
+代码:
+{stock}
+
+当前价格:
+{round(price,2)}
+
+确认买点:
+{round(confirm_buy,2)}
+
+成交量:
+{round(volume_ratio,2)}
+
+MACD:
+强势
+
+状态:
+🟢 三重确认通过
+
+建议:
+可考虑分批关注
+"""
+
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+
+    print(email_content)
+
+
+
+else:
+
+    print("🟡 未满足买入三重确认")
+
+
+    print(
+        "价格:",
+        price_ok,
+        "成交量:",
+        volume_ok,
+        "MACD:",
+        macd_ok
+    )
+
+
+print("================")
 print(
     "V5.1_full运行完成"
 )

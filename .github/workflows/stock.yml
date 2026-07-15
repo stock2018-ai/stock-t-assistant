@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  stock-check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 测试运行
-        run: echo "智能做T助手启动成功"
+      - name: 下载代码
+        uses: actions/checkout@v4
+
+      - name: 运行程序
+        run: python stock_monitor.py

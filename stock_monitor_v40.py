@@ -1502,4 +1502,93 @@ print("0.382:",
 
 
 print("================")
+# ==========================
+# V4.6 智能交易计划
+# ==========================
+
+print()
+print("================")
+print("V4.6 智能交易计划")
+print("================")
+
+
+# 第一买入观察区
+
+buy_low = wave_low
+
+buy_high = fib618_new
+
+
+print("观察买入区:",
+      round(buy_low,2),
+      "-",
+      round(buy_high,2))
+
+
+# 确认买点
+
+confirm_buy = fib618_new
+
+
+print("确认买点:",
+      round(confirm_buy,2))
+
+
+# 目标位
+
+target1 = fib500_new
+
+target2 = fib382_new
+
+target3 = wave_high
+
+
+print()
+
+print("目标价格:")
+
+print("第一目标:",
+      round(target1,2))
+
+print("第二目标:",
+      round(target2,2))
+
+print("前高目标:",
+      round(target3,2))
+
+
+# 风险
+
+stop_loss = wave_low * 0.97
+
+
+print()
+
+print("风险控制:")
+
+print("防守位:",
+      round(stop_loss,2))
+
+
+# 当前判断
+
+print()
+
+if price <= fib618_new:
+
+    print("当前状态:")
+    print("🟡 回调区域，等待止跌确认")
+
+elif price <= fib500_new:
+
+    print("当前状态:")
+    print("🟢 支撑反弹观察")
+
+else:
+
+    print("当前状态:")
+    print("🟠 接近压力区域")
+
+
+print("================")
 print("V3.3运行完成")

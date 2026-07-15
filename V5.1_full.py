@@ -1474,7 +1474,179 @@ else:
         macd_ok
     )
 
+# ==========================
+# V5.4 每日交易报告
+# ==========================
 
+print()
+print("================")
+print("V5.4 每日报告")
+print("================")
+
+
+report_time = datetime.datetime.now().strftime(
+    "%Y-%m-%d %H:%M:%S"
+)
+
+
+report = f"""
+========================
+智能交易日报
+========================
+
+时间:
+{report_time}
+
+
+股票:
+{name}
+
+代码:
+{stock}
+
+
+当前价格:
+{round(price,2)}
+
+
+技术指标:
+----------------
+
+MA5:
+{round(float(ma5),2)}
+
+MA10:
+{round(float(ma10),2)}
+
+RSI:
+{round(rsi_now,2)}
+
+MACD:
+{round(macd_now,3)}
+
+
+
+波段分析:
+----------------
+
+波段低点:
+{round(wave_low,2)}
+
+波段高点:
+{round(wave_high,2)}
+
+
+黄金分割:
+
+0.618:
+{round(fib618_new,2)}
+
+0.5:
+{round(fib500_new,2)}
+
+0.382:
+{round(fib382_new,2)}
+
+
+
+交易计划:
+----------------
+
+观察买入区:
+
+{round(buy_low,2)}
+-
+{round(buy_high,2)}
+
+
+确认买点:
+
+{round(confirm_buy,2)}
+
+
+第一目标:
+
+{round(target1,2)}
+
+
+第二目标:
+
+{round(target2,2)}
+
+
+前高目标:
+
+{round(target3,2)}
+
+
+
+风险控制:
+
+防守位:
+
+{round(stop_loss,2)}
+
+
+
+当前状态:
+
+"""
+
+
+
+if price <= fib618_new:
+
+    report += """
+🟡 回调区域
+等待止跌确认
+"""
+
+elif price <= fib500_new:
+
+    report += """
+🟢 支撑反弹观察
+"""
+
+else:
+
+    report += """
+🟠 接近压力区域
+"""
+
+
+
+report += """
+
+========================
+系统结束
+========================
+"""
+
+
+filename = (
+    name
+    + "_交易报告.txt"
+)
+
+
+with open(
+    filename,
+    "w",
+    encoding="utf-8"
+) as f:
+
+    f.write(report)
+
+
+
+print(report)
+
+
+print("报告已生成:")
+print(filename)
+
+
+print("================")
 print("================")
 print(
     "V5.1_full运行完成"

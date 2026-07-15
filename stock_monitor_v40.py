@@ -860,4 +860,65 @@ print("================")
 
 
 print("V3.4运行完成")
+# =========================
+# V4.0 AI综合分析报告
+# =========================
+
+print()
+print("========================")
+print("AI综合分析报告")
+print("========================")
+
+print("股票:", name)
+print("当前价格:", round(price,2))
+
+print()
+
+# 趋势判断
+
+if price > ma5 and ma5 > ma10:
+    trend = "🟢 短期趋势向上"
+
+elif price < ma5 and ma5 < ma10:
+    trend = "🔴 短期趋势偏弱"
+
+else:
+    trend = "🟡 震荡观察"
+
+print("趋势:", trend)
+
+
+# 底部区域判断
+
+if price <= level618 * 1.03:
+    print("位置判断: 🟢 接近0.618支撑区域")
+
+elif price <= level500:
+    print("位置判断: 🟡 回调区域")
+
+else:
+    print("位置判断: 🔴 偏高区域")
+
+
+# 简单AI建议
+
+print()
+
+if score >= 80:
+
+    print("AI建议:")
+    print("🟢 可以重点关注，等待确认信号")
+
+elif score >= 60:
+
+    print("AI建议:")
+    print("🟡 保持观察，等待趋势确认")
+
+else:
+
+    print("AI建议:")
+    print("🔴 控制仓位，注意风险")
+
+
+print("========================")
 print("V3.3运行完成")

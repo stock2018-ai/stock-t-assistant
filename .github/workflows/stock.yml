@@ -14,4 +14,4 @@ jobs:
       - name: 安装分析工具
         run: pip install -r requirements.txt
       - name: 运行程序
-        run: python stock_monitor_v32.py
+        run: python stock_monitor_v40.py

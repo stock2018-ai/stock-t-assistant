@@ -129,3 +129,84 @@ print("K线数量:", len(data))
 print(data.tail())
 
 print("----------------")
+# =========================
+# 技术指标计算
+# V3.2 第二阶段
+# =========================
+
+
+close = data["close"]
+
+
+# 当前价格
+
+price = float(close.iloc[-1])
+
+
+# =========================
+# MA均线
+# =========================
+
+ma5 = close.rolling(5).mean().iloc[-1]
+
+ma10 = close.rolling(10).mean().iloc[-1]
+
+
+# =========================
+# RSI指标
+# =========================
+
+delta = close.diff()
+
+
+gain = delta.where(delta > 0, 0)
+
+loss = -delta.where(delta < 0, 0)
+
+
+avg_gain = gain.rolling(14).mean()
+
+avg_loss = loss.rolling(14).mean()
+
+
+rs = avg_gain / avg_loss
+
+
+rsi = 100 - (100 / (1 + rs))
+
+
+rsi_now = float(rsi.iloc[-1])
+
+
+# =========================
+# 输出
+# =========================
+
+print()
+
+print("股票:", name)
+
+print("代码:", stock)
+
+print()
+
+print("当前价格:",
+      round(price,2))
+
+
+print("----------------")
+
+
+print("MA5:",
+      round(float(ma5),2))
+
+
+print("MA10:",
+      round(float(ma10),2))
+
+
+print("RSI:",
+      round(rsi_now,2))
+
+
+print("----------------")

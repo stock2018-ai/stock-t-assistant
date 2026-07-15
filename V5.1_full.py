@@ -1473,7 +1473,114 @@ else:
         "MACD:",
         macd_ok
     )
+# ==========================
+# V5.5 做T交易提醒
+# ==========================
 
+print()
+print("================")
+print("V5.5 做T提醒")
+print("================")
+
+
+t_buy_low = wave_low
+t_buy_high = fib618_new
+
+t_sell_low = fib500_new
+t_sell_high = fib382_new
+
+
+if price <= t_buy_high:
+
+    email_title = (
+        "【做T低吸提醒】"
+        + stock_name
+    )
+
+    email_content = f"""
+股票:
+{stock_name}
+
+代码:
+{stock_code}
+
+当前价格:
+{round(price,2)}
+
+状态:
+🟢 接近做T低吸区域
+
+买入观察区:
+{round(t_buy_low,2)}
+-
+{round(t_buy_high,2)}
+
+卖出观察区:
+{round(t_sell_low,2)}
+-
+{round(t_sell_high,2)}
+
+防守:
+{round(stop_loss,2)}
+
+建议:
+等待止跌确认
+"""
+
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+    print(email_content)
+
+
+elif price >= t_sell_low:
+
+    email_title = (
+        "【做T高抛提醒】"
+        + stock_name
+    )
+
+
+    email_content = f"""
+股票:
+{stock_name}
+
+代码:
+{stock_code}
+
+当前价格:
+{round(price,2)}
+
+状态:
+🔴 接近做T卖出区域
+
+卖出区域:
+{round(t_sell_low,2)}
+-
+{round(t_sell_high,2)}
+
+建议:
+考虑部分止盈
+"""
+
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+    print(email_content)
+
+
+else:
+
+    print("🟡 当前无明显做T机会")
+
+
+print("================")
 # ==========================
 # V5.4 每日交易报告
 # ==========================

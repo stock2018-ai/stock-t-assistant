@@ -752,4 +752,112 @@ else:
 print("----------------")
 print("----------------")
 print("----------------")
+# =========================
+# V3.4 综合交易判断
+# =========================
+
+
+total_score = 50
+
+
+# 底部评分
+
+total_score += bottom_score
+
+
+# 成交量评分
+
+total_score += volume_score
+
+
+
+# MACD趋势
+
+if dif_now > dea_now:
+
+    total_score += 10
+
+else:
+
+    total_score -= 5
+
+
+
+# 顶部风险扣分
+
+total_score -= top_risk
+
+
+
+# 限制范围
+
+if total_score > 100:
+
+    total_score = 100
+
+
+if total_score < 0:
+
+    total_score = 0
+
+
+
+print()
+
+print("================")
+
+print("综合交易判断")
+
+
+print("综合评分:",
+      total_score)
+
+
+
+print("底部评分:",
+      bottom_score)
+
+
+print("顶部风险:",
+      top_risk)
+
+
+
+print("成交量评分:",
+      volume_score)
+
+
+
+print()
+
+
+# 最终结论
+
+
+if total_score >= 80:
+
+    print("🟢 强势关注区域")
+
+    print("策略: 可考虑分批关注")
+
+
+elif total_score >= 60:
+
+    print("🟡 调整观察区域")
+
+    print("策略: 等待确认")
+
+
+else:
+
+    print("🔴 风险区域")
+
+    print("策略: 控制仓位")
+
+
+
+print("================")
+
+
+print("V3.4运行完成")
 print("V3.3运行完成")

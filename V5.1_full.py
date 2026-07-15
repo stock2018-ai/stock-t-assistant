@@ -1663,7 +1663,29 @@ print(report)
 
 print("报告已生成:")
 print(filename)
+# ==========================
+# V5.5 每日报告邮件发送
+# ==========================
 
+try:
+
+    email_title = (
+        "【每日交易报告】"
+        + stock_name
+    )
+
+    send_email(
+        email_title,
+        report_content
+    )
+
+    print("📧 每日报告邮件已发送")
+
+
+except Exception as e:
+
+    print("📧 报告邮件发送失败")
+    print(e)
 
 print("================")
 print("================")

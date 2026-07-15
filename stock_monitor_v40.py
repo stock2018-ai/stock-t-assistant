@@ -1644,54 +1644,51 @@ if price > confirm_buy:
     print(email_title)
 
     print(email_content)
-# ==========================
-#     V4.8 Gmail自动发送
-# ==========================
+    # ==========================
+    # V4.8 Gmail自动发送
+    # ==========================
 
-sender = os.getenv("GMAIL_USER")
-password = os.getenv("GMAIL_PASS")
+    sender = os.getenv("GMAIL_USER")
+    password = os.getenv("GMAIL_PASS")
 
-receiver = sender
+    receiver = sender
 
-msg = MIMEText(
-    email_content,
-    "plain",
-    "utf-8"
-)
-
-msg["Subject"] = email_title
-msg["From"] = sender
-msg["To"] = receiver
-
-
-try:
-
-    server = smtplib.SMTP_SSL(
-        "smtp.gmail.com",
-        465
+    msg = MIMEText(
+        email_content,
+        "plain",
+        "utf-8"
     )
 
-    server.login(
-        sender,
-        password
-    )
+    msg["Subject"] = email_title
+    msg["From"] = sender
+    msg["To"] = receiver
 
-    server.sendmail(
-        sender,
-        receiver,
-        msg.as_string()
-    )
+    try:
 
-    server.quit()
+        server = smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        )
 
-    print("✅ Gmail邮件发送成功")
+        server.login(
+            sender,
+            password
+        )
 
+        server.sendmail(
+            sender,
+            receiver,
+            msg.as_string()
+        )
 
-except Exception as e:
+        server.quit()
 
-    print("❌ Gmail邮件发送失败")
-    print(e)
+        print("✅ Gmail邮件发送成功")
 
+    except Exception as e:
+
+        print("❌ Gmail邮件发送失败")
+        print(e)
 else:
 
     print("暂未触发买入提醒")

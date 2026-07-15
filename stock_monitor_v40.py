@@ -1410,4 +1410,96 @@ print("================")
 
 
 print("V3.3运行完成")
+# ==========================
+# V4.5 最近上涨波分析
+# ==========================
+
+print()
+print("================")
+print("V4.5 最近上涨波分析")
+print("================")
+
+
+wave = data.tail(120).reset_index(drop=True)
+
+
+# 找最低点
+low_index = wave["low"].idxmin()
+
+wave_low = float(
+    wave.loc[low_index, "low"]
+)
+
+
+# 低点之后寻找最高点
+after_low = wave.iloc[low_index:]
+
+wave_high = float(
+    after_low["high"].max()
+)
+
+
+print("上涨波低点:",
+      round(wave_low,2))
+
+print("上涨波高点:",
+      round(wave_high,2))
+
+
+# 涨幅
+
+wave_up = (
+    wave_high-wave_low
+) / wave_low * 100
+
+
+print("上涨幅度:",
+      round(wave_up,2),
+      "%")
+
+
+# 当前回撤
+
+drawdown = (
+    wave_high-price
+) / wave_high * 100
+
+
+print("当前回撤:",
+      round(drawdown,2),
+      "%")
+
+
+# 黄金分割
+
+fib618_new = wave_high - (
+    wave_high-wave_low
+)*0.618
+
+
+fib500_new = wave_high - (
+    wave_high-wave_low
+)*0.5
+
+
+fib382_new = wave_high - (
+    wave_high-wave_low
+)*0.382
+
+
+print()
+
+print("黄金分割:")
+
+print("0.618:",
+      round(fib618_new,2))
+
+print("0.5:",
+      round(fib500_new,2))
+
+print("0.382:",
+      round(fib382_new,2))
+
+
+print("================")
 print("V3.3运行完成")

@@ -1049,7 +1049,7 @@ else:
     print("C级：暂不介入")
     print("🟡 调整观察，等待确认")
 
-else:
+
 
     print("AI结论:")
     print("🔴 趋势偏弱，注意风险")

@@ -50,8 +50,8 @@ rsi_now = float(rsi.iloc[-1])
 
 # V3.1.2 波段识别黄金分割
 
-# 最近60个交易日
-recent = close.tail(60)
+# V3.1.3 使用120日寻找主波段
+recent = close.tail(120)
 
 # 找最低点
 low_price = float(recent.min())

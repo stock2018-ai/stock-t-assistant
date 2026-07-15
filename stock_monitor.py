@@ -22,6 +22,8 @@ code = "600118"
 url = (
     "https://push2his.eastmoney.com/api/qt/stock/kline/get?"
     "secid=1."+code+
+    "&fields1=f1,f2,f3,f4,f5,f6"
+    "&fields2=f51,f52,f53,f54,f55,f56,f57"
     "&klt=101"
     "&fqt=1"
     "&lmt=200"
@@ -51,7 +53,7 @@ if response.status_code != 200:
     exit()
 data_json = response.json()
 
-
+print(data_json)
 klines = data_json["data"]["klines"]
 
 

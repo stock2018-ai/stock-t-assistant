@@ -571,6 +571,102 @@ else:
 
     print("策略: 等待方向确认")
 
+# =========================
+# V3.3.1 成交量行为分析
+# =========================
+
+
+volume = data["volume"]
+
+
+# 最近5日平均成交量
+
+vol_ma5 = volume.rolling(5).mean().iloc[-1]
+
+
+current_volume = float(volume.iloc[-1])
+
+
+volume_ratio = current_volume / vol_ma5
+
+
+
+print()
 
 print("----------------")
-print("V3.2运行完成")
+
+print("成交量分析")
+
+
+print("当前成交量:",
+      round(current_volume/10000,2),
+      "万")
+
+
+print("5日均量:",
+      round(float(vol_ma5)/10000,2),
+      "万")
+
+
+print("量比:",
+      round(volume_ratio,2))
+
+
+# 成交量判断
+
+volume_score = 0
+
+
+if volume_ratio < 0.7:
+
+    print("🟢 缩量调整")
+
+    print("抛压减弱")
+
+    volume_score += 10
+
+
+
+elif volume_ratio > 1.5:
+
+    print("🔴 放量波动")
+
+    print("注意资金博弈")
+
+
+else:
+
+    print("🟡 成交量正常")
+
+
+# 上涨放量
+
+if price > ma5 and volume_ratio > 1.2:
+
+    print("🟢 放量上涨")
+
+    volume_score += 10
+
+
+
+# 下跌放量
+
+if price < ma5 and volume_ratio > 1.5:
+
+    print("⚠️ 下跌放量")
+
+    print("短线压力增加")
+
+    volume_score -= 10
+
+
+
+print()
+
+print("成交量评分:",
+      volume_score)
+
+
+print("----------------")
+print("----------------")
+print("V3.3运行完成")

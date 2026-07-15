@@ -11,6 +11,7 @@ import datetime
 # =========================
 
 print("智能做T助手 V3.2")
+print("我是V3.2测试文件")
 print("时间:", datetime.datetime.now())
 print("----------------")
 

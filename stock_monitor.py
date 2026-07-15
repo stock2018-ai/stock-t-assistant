@@ -117,7 +117,7 @@ close=data["close"]
 close = data["close"]
 close = close.squeeze()
 
-price = float(data["close"].iloc[-1])
+price = float(close.iloc[-1])
 
 
 # 均线

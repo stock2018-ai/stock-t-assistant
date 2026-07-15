@@ -964,7 +964,7 @@ else:
 
 # 3. MACD
 
-if macd > 0:
+if macd.iloc[-1] > 0:
     ai_score += 10
     macd_state = "MACD偏强"
 

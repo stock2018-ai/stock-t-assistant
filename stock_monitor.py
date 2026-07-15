@@ -1,4 +1,4 @@
-import yfinance as yf
+
 import pandas as pd
 import datetime
 
@@ -14,11 +14,68 @@ print("----------------")
 
 
 # 获取数据
-data = yf.download(
-    stock,
-    period="6mo",
-    interval="1d"
+# 东方财富K线接口
+
+code = "600118"
+
+url = (
+    "https://push2his.eastmoney.com/api/qt/stock/kline/get?"
+    "secid=1."+code+
+    "&klt=101"
+    "&fqt=1"
+    "&lmt=200"
 )
+
+
+headers = {
+    "User-Agent":
+    "Mozilla/5.0"
+}
+
+
+response = requests.get(
+    url,
+    headers=headers
+)
+
+
+data_json = response.json()
+
+
+klines = data_json["data"]["klines"]
+
+
+records=[]
+
+
+for item in klines:
+
+    row=item.split(",")
+
+    records.append([
+        row[0],
+        float(row[2]),
+        float(row[3]),
+        float(row[4]),
+        float(row[5]),
+        float(row[6])
+    ])
+
+
+data=pd.DataFrame(
+    records,
+    columns=[
+        "date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "volume"
+    ]
+)
+
+
+close=data["close"]
 
 
 close = data["Close"]

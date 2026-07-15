@@ -1667,17 +1667,34 @@ print(filename)
 # V5.5 每日报告邮件发送
 # ==========================
 
+# ==========================
+# V5.5 每日报告邮件发送
+# ==========================
+
 try:
+
+    # 读取已经生成的报告文件
+
+    with open(
+        "中国卫星_交易报告.txt",
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        report_content = f.read()
+
 
     email_title = (
         "【每日交易报告】"
         + stock_name
     )
 
+
     send_email(
         email_title,
         report_content
     )
+
 
     print("📧 每日报告邮件已发送")
 

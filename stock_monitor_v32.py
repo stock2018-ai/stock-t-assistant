@@ -455,5 +455,122 @@ print("参考卖T区:",
 
 
 print("----------------")
+# =========================
+# V3.3 底部/顶部趋势判断
+# =========================
 
+
+bottom_score = 0
+
+top_risk = 0
+
+
+
+# 1. RSI判断
+
+if rsi_now < 35:
+
+    bottom_score += 20
+
+
+elif rsi_now < 45:
+
+    bottom_score += 10
+
+
+elif rsi_now > 75:
+
+    top_risk += 20
+
+
+
+# 2. 均线判断
+
+if price < ma5 and price < ma10:
+
+    bottom_score += 10
+
+
+if ma5 > ma10:
+
+    bottom_score += 10
+
+
+if price > ma5 and price > ma10:
+
+    top_risk += 10
+
+
+
+# 3. 黄金分割位置判断
+
+if price <= level618 * 1.03:
+
+    bottom_score += 20
+
+
+if price > level382:
+
+    top_risk += 15
+
+
+
+# 4. 距离波段高点
+
+drawdown = (high_price-price)/high_price
+
+
+if drawdown > 0.20:
+
+    bottom_score += 15
+
+
+if drawdown < 0.05:
+
+    top_risk += 15
+
+
+
+# 输出
+
+print()
+
+print("----------------")
+
+print("趋势位置判断")
+
+
+print("底部评分:",
+      bottom_score)
+
+
+print("顶部风险:",
+      top_risk)
+
+
+
+# 综合判断
+
+if bottom_score >= 50:
+
+    print("🟢 接近底部区域")
+
+    print("策略: 等待企稳，可分批关注")
+
+
+elif top_risk >= 40:
+
+    print("🔴 高位风险区域")
+
+    print("策略: 注意回调风险")
+
+
+else:
+
+    print("🟡 中间震荡区域")
+
+    print("策略: 等待方向确认")
+
+
+print("----------------")
 print("V3.2运行完成")

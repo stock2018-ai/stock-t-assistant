@@ -110,7 +110,7 @@ data=pd.DataFrame(
 close=data["close"]
 
 
-close = data["Close"]
+close = data["close"]
 close = close.squeeze()
 
 price = float(close.iloc[-1])

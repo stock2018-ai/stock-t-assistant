@@ -30,16 +30,25 @@ url = (
 
 headers = {
     "User-Agent":
-    "Mozilla/5.0"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept":
+    "application/json,text/plain,*/*",
+    "Referer":
+    "https://quote.eastmoney.com/",
+    "Connection":
+    "keep-alive"
 }
 
 
 response = requests.get(
     url,
-    headers=headers
+    headers=headers,
+    timeout=10
 )
 
-
+if response.status_code != 200:
+    print("东方财富接口连接失败")
+    exit()
 data_json = response.json()
 
 

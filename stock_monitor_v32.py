@@ -224,19 +224,49 @@ recent = close.tail(120)
 # 波段最低点
 
 low_price = float(recent.min())
+# =========================
+# V3.2.4 智能上涨波段识别
+# =========================
 
 
-# 波段最高点
-
-high_price = float(recent.max())
+recent = close.tail(120)
 
 
-# 判断上涨幅度
+# 最近20日寻找启动低点
 
-wave_gain = (high_price - low_price) / low_price
+window = 20
+
+rolling_low = recent.rolling(window).min()
 
 
-# 黄金分割计算
+start_index = rolling_low.idxmin()
+
+
+low_price = float(recent.loc[start_index])
+
+
+# 启动点之后寻找最高价
+
+after_start = recent.loc[start_index:]
+
+
+high_price = float(after_start.max())
+
+
+# 如果异常，退回最近波段
+
+if high_price <= low_price:
+
+    low_price = float(recent.min())
+
+    high_price = float(recent.max())
+
+
+wave_gain = (high_price-low_price)/low_price
+
+
+
+# 黄金分割
 
 level382 = high_price - (high_price-low_price)*0.382
 
@@ -245,6 +275,45 @@ level500 = high_price - (high_price-low_price)*0.5
 level618 = high_price - (high_price-low_price)*0.618
 
 
+
+print()
+
+print("----------------")
+
+print("智能波段识别")
+
+
+print("启动低点:",
+      round(low_price,2))
+
+
+print("上涨高点:",
+      round(high_price,2))
+
+
+print("上涨幅度:",
+      round(wave_gain*100,2),
+      "%")
+
+
+print()
+
+print("黄金分割")
+
+
+print("0.382压力位:",
+      round(level382,2))
+
+
+print("0.5关键位:",
+      round(level500,2))
+
+
+print("0.618支撑:",
+      round(level618,2))
+
+
+print("----------------")
 
 print()
 

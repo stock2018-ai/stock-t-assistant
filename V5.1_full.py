@@ -1484,10 +1484,16 @@ print("================")
 
 
 t_buy_low = wave_low
-t_buy_high = fib618_new
+# V5.5变量保护
 
-t_sell_low = fib500_new
-t_sell_high = fib382_new
+t_buy_low = wave_low
+
+t_buy_high = confirm_buy
+
+
+t_sell_low = target1
+
+t_sell_high = target2
 
 
 if price <= t_buy_high:

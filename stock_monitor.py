@@ -86,7 +86,8 @@ data=pd.DataFrame(
 
 
 close=data["close"]
-
+print(data.head())
+print("数据数量:", len(data))
 
 records=[]
 

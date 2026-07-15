@@ -1297,7 +1297,65 @@ else:
 
 
 print()
+# ==========================
+# V5.2 防守位风险提醒
+# ==========================
 
+print()
+print("================")
+print("V5.2 风险提醒")
+print("================")
+
+
+if price <= stop_loss:
+
+    email_title = (
+        "【风险警报】"
+        + name
+        + "跌破防守位"
+    )
+
+
+    email_content = f"""
+股票:
+{name}
+
+代码:
+{stock}
+
+当前价格:
+{round(price,2)}
+
+防守位:
+{round(stop_loss,2)}
+
+状态:
+🔴 跌破风险控制线
+
+建议:
+停止加仓
+重新评估趋势
+
+交易计划:
+观察止跌信号
+"""
+
+
+    send_email(
+        email_title,
+        email_content
+    )
+
+
+    print(email_content)
+
+
+else:
+
+    print("🟢 防守位正常，未触发风险提醒")
+
+
+print("================")
 print("================")
 
 print(
